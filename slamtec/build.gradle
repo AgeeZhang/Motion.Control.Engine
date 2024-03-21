@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'com.android.library'
     id 'maven-publish'
 }
 
@@ -12,7 +11,7 @@ afterEvaluate {
                 from components.release         // 表示发布 release（jitpack 都不会运用到）
                 groupId = 'tech.runchen.mce' // 这个是依靠库的组 id
                 artifactId = 'slamtec'       // 依靠库的名称（jitpack 都不会运用到）
-                version = "1.0.0" //
+                version = "1.0.0-SNAPSHOT" //
             }
         }
     }
@@ -36,8 +35,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
