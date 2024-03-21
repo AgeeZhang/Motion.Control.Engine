@@ -1,0 +1,70 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release         // 表示发布 release（jitpack 都不会运用到）
+                groupId = 'tech.runchen.mce' // 这个是依靠库的组 id
+                artifactId = 'slamtec'       // 依靠库的名称（jitpack 都不会运用到）
+                version = "1.0.0" //
+            }
+        }
+    }
+}
+
+android {
+    namespace 'tech.runchen.mce.slamtec'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 24
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        buildConfig = true
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // retrofit2
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
+
+    // paho dependencies
+    implementation "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation "com.github.hannesa2:paho.mqtt.android:3.3.5"
+}
